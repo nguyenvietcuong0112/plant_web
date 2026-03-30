@@ -28,7 +28,12 @@ const verifyToken = async (req, res, next) => {
         const { data: { user }, error } = await supabase.auth.getUser(token);
         
         if (error || !user) {
-            return res.status(401).json({ error: 'Unauthorized' });
+            console.error('Auth error:', error);
+            return res.status(401).json({ 
+                error: 'Unauthorized', 
+                message: error?.message || 'User not found',
+                details: error
+            });
         }
 
         req.user = user;
