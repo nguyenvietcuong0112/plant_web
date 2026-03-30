@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 
 const PlantCard = ({ plant }) => {
   const imageUrl = plant.image 
-    ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`)
-    : 'https://via.placeholder.com/300x250?text=No+Image';
+    ? (plant.image.startsWith('http') ? plant.image : `${window.location.origin}${plant.image}`)
+    : 'https://via.placeholder.com/200x200?text=No+Image';
 
   return (
     <Link to={`/plant/${plant.id}`} className="plant-card">
-      <img src={imageUrl} alt={plant.name} className="plant-image" />
+      <div className="plant-image-container">
+        <img src={imageUrl} alt={plant.name} className="plant-image" />
+      </div>
       <div className="plant-info">
         <h3 className="plant-name">{plant.name}</h3>
         <p className="plant-price">{(plant.price || 0).toLocaleString()} VNĐ</p>
