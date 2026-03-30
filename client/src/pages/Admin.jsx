@@ -67,7 +67,8 @@ const Admin = () => {
       if (!error.response) {
         alert('Lỗi kết nối: Không thể kết nối tới Server (cổng 5000). Hãy chắc chắn bạn đã chạy "npm start"!');
       } else {
-        const errorMsg = error.response?.data?.error || 'Có lỗi xảy ra tại Server!';
+        const errBody = error.response?.data?.error;
+        const errorMsg = typeof errBody === 'object' ? JSON.stringify(errBody) : (errBody || 'Có lỗi xảy ra tại Server!');
         alert('Lỗi Server: ' + errorMsg);
       }
     }

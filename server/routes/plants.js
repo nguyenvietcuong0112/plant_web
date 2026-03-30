@@ -69,7 +69,8 @@ module.exports = (supabase, verifyToken) => {
             if (error) throw error;
             res.status(201).json(data[0]);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            console.error('Operation error:', error);
+            res.status(500).json({ error: error.message || error });
         }
     });
 
@@ -92,7 +93,8 @@ module.exports = (supabase, verifyToken) => {
             if (error) throw error;
             res.json(data[0]);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            console.error('Operation error:', error);
+            res.status(500).json({ error: error.message || error });
         }
     });
 
@@ -107,7 +109,8 @@ module.exports = (supabase, verifyToken) => {
             if (error) throw error;
             res.json({ message: 'Deleted successfully' });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            console.error('Operation error:', error);
+            res.status(500).json({ error: error.message || error });
         }
     });
 
