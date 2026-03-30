@@ -11,7 +11,7 @@ const Home = () => {
     const fetchPlants = async () => {
       try {
         const { data } = await getPlants();
-        setPlants(data);
+        setPlants(data || []);
       } catch (error) {
         console.error('Error fetching plants:', error);
       } finally {
@@ -22,7 +22,7 @@ const Home = () => {
   }, []);
 
   const filteredPlants = plants.filter(plant =>
-    plant.name.toLowerCase().includes(searchTerm.toLowerCase())
+    plant?.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
