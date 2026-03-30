@@ -19,31 +19,39 @@ const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supaba
 
 // Auth Middleware
 const verifyToken = async (req, res, next) => {
-    if (!supabase) return res.status(500).json({ error: 'Server missing SUPABASE_URL or SUPABASE_KEY environment variables' });
-    
-    const token = req.headers.authorization?.split(' ')[1];
-    if (!token) return res.status(401).json({ error: 'No token provided' });
+    try {
+        if (!supabase) throw new Error('SUPABASE_URL or SUPABASE_KEY is missing');
+        
+        const token = req.headers.authorization?.split(' ')[1];
+        if (!token) return res.status(401).json({ error: 'No token provided' });
 
-    const { data: { user }, error } = await supabase.auth.getUser(token);
-    
-    if (error || !user) {
-        return res.status(401).json({ error: 'Unauthorized' });
+        const { data: { user }, error } = await supabase.auth.getUser(token);
+        
+        if (error || !user) {
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+
+        req.user = user;
+        next();
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
-
-    req.user = user;
-    next();
 };
-
-// Health check
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', supabaseUrl: !!supabaseUrl });
-});
 
 // Routes
 const plantRoutes = require('./routes/plants')(supabase, verifyToken);
 app.use('/api/plants', plantRoutes);
 
-// Serve frontend build in production
+// Health check
+app.get('/api/health', (req, res) => {
+    res.json({ 
+        status: 'ok', 
+        hasSupabase: !!supabase,
+        env: process.env.NODE_ENV
+    });
+});
+
+// Production serving
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/dist')));
     app.get('*', (req, res) => {
@@ -51,10 +59,18 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error('SERVER ERROR:', err);
+    res.status(500).json({ 
+        error: err.message || 'Internal Server Error',
+        details: typeof err === 'object' ? JSON.stringify(err) : err
+    });
+});
+
 if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
-        console.log('Supabase client initialized.');
     });
 }
 
