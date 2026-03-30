@@ -13,7 +13,7 @@ const PlantCard = ({ plant }) => {
       </div>
       <div className="plant-info">
         <h3 className="plant-name">{plant.name}</h3>
-        <p className="plant-price">{plant.price.toLocaleString()} VNĐ</p>
+        <p className="plant-price">{(plant.price || 0).toLocaleString()} VNĐ</p>
       </div>
     </Link>
   );

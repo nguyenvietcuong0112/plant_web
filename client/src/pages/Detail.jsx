@@ -43,7 +43,7 @@ const Detail = () => {
         <div className="plant-detail-info">
           <h1 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>{plant.name}</h1>
           <p style={{ fontSize: '1.5rem', fontWeight: '700', color: 'var(--primary)', marginBottom: '25px' }}>
-            {plant.price.toLocaleString()} VNĐ
+            {(plant.price || 0).toLocaleString()} VNĐ
           </p>
           
           <div style={{ height: '2px', background: '#f1f5f9', marginBottom: '25px' }}></div>

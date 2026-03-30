@@ -168,7 +168,7 @@ const Admin = () => {
                   />
                 </td>
                 <td style={{ fontWeight: '600', color: 'var(--text-dark)' }}>{plant.name}</td>
-                <td style={{ color: 'var(--primary)', fontWeight: '700' }}>{plant.price.toLocaleString()} đ</td>
+                <td style={{ color: 'var(--primary)', fontWeight: '700' }}>{(plant.price || 0).toLocaleString()} đ</td>
                 <td>
                   <div style={{ display: 'flex', gap: '8px' }}>
                     <button className="btn" style={{ background: '#f0fdf4', color: 'var(--primary)', padding: '8px 16px' }} onClick={() => handleEdit(plant)}>Sửa</button>
