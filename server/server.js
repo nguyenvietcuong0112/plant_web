@@ -11,18 +11,12 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Supabase Setup
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-    console.error('MISSING SUPABASE CREDENTIALS! Check your .env file.');
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
 // Auth Middleware
 const verifyToken = async (req, res, next) => {
+    if (!supabase) return res.status(500).json({ error: 'Server missing SUPABASE_URL or SUPABASE_KEY environment variables' });
+    
     const token = req.headers.authorization?.split(' ')[1];
     if (!token) return res.status(401).json({ error: 'No token provided' });
 
