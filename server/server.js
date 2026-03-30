@@ -51,6 +51,17 @@ app.get('/api/health', (req, res) => {
     });
 });
 
+// Debug env (safe)
+app.get('/api/debug-env', (req, res) => {
+    res.json({
+        node_env: process.env.NODE_ENV,
+        has_url: !!process.env.SUPABASE_URL,
+        has_key: !!process.env.SUPABASE_KEY,
+        vercel: !!process.env.VERCEL,
+        url_start: process.env.SUPABASE_URL ? process.env.SUPABASE_URL.substring(0, 10) : 'none'
+    });
+});
+
 // Production serving
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, '../client/dist')));
