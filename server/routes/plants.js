@@ -44,11 +44,11 @@ module.exports = (supabase, verifyToken) => {
         if (error) throw error;
         
         // Get public URL
-        const { data: { publicUrl } } = supabase.storage
+        const res = supabase.storage
             .from('plant-images')
             .getPublicUrl(fileName);
             
-        return publicUrl;
+        return res.data?.publicUrl || '';
     };
 
     // Add new plant
