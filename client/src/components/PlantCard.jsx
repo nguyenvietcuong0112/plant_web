@@ -8,7 +8,9 @@ const PlantCard = ({ plant }) => {
 
   return (
     <Link to={`/plant/${plant.id}`} className="plant-card">
-      <img src={imageUrl} alt={plant.name} className="plant-image" />
+      <div className="plant-image-container">
+        <img src={imageUrl} alt={plant.name} className="plant-image" />
+      </div>
       <div className="plant-info">
         <h3 className="plant-name">{plant.name}</h3>
         <p className="plant-price">{plant.price.toLocaleString()} VNĐ</p>

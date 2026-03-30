@@ -6,11 +6,12 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="container">
         <Link to="/" className="nav-logo">
-          🌿 Plant Shop
+          <span>🌿</span>
+          <span>Plant Shop</span>
         </Link>
         <div className="nav-links">
-          <Link to="/">Home</Link>
-          {/* Admin link hidden from users */}
+          <Link to="/" className="nav-link">Trang chủ</Link>
+          <Link to="/login" className="nav-link">Quản trị</Link>
         </div>
       </div>
     </nav>

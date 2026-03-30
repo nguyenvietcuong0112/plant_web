@@ -5,6 +5,7 @@ import { getPlants, createPlant, updatePlant, deletePlant } from '../api';
 const Admin = () => {
   const [plants, setPlants] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -12,11 +13,11 @@ const Admin = () => {
     image: null
   });
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetchPlants();
   }, []);
-
-  const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('supabase.auth.token');
@@ -43,6 +44,7 @@ const Admin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const data = new FormData();
     data.append('name', formData.name);
     data.append('price', formData.price);
@@ -64,12 +66,10 @@ const Admin = () => {
       fetchPlants();
     } catch (error) {
       console.error('Error saving plant:', error);
-      if (!error.response) {
-        alert('Lỗi kết nối: Không thể kết nối tới Server (cổng 5000). Hãy chắc chắn bạn đã chạy "npm start"!');
-      } else {
-        const errorMsg = error.response?.data?.error || 'Có lỗi xảy ra tại Server!';
-        alert('Lỗi Server: ' + errorMsg);
-      }
+      const errorMsg = error.response?.data?.error || 'Có lỗi xảy ra!';
+      alert('Lỗi: ' + errorMsg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,75 +90,96 @@ const Admin = () => {
         await deletePlant(id);
         fetchPlants();
       } catch (error) {
-        console.error('Error deleting plant:', error);
+        alert('Lỗi khi xóa: ' + (error.response?.data?.error || 'Có lỗi xảy ra'));
       }
     }
   };
 
   return (
-    <div className="container admin-page" style={{ padding: '40px 20px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <h1>Quản lý sản phẩm</h1>
-        <button onClick={handleLogout} className="btn" style={{ backgroundColor: '#ff4d4d', color: 'white' }}>Đăng xuất</button>
+    <div className="container" style={{ padding: '60px 24px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
+        <div>
+          <h1 style={{ fontSize: '2rem' }}>Quản lý Sản phẩm</h1>
+          <p style={{ color: 'var(--text-muted)' }}>Thêm, sửa hoặc xóa cây cảnh trong kho hàng của bạn.</p>
+        </div>
+        <button onClick={handleLogout} className="btn btn-danger">Đăng xuất</button>
       </div>
 
-      <div style={{ background: 'white', padding: '30px', borderRadius: '12px', boxShadow: 'var(--shadow)', marginBottom: '50px', marginTop: '30px' }}>
-        <h2>{editingId ? 'Sửa thông tin cây' : 'Thêm cây mới'}</h2>
-        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-          <div className="form-group">
-            <label>Tên cây</label>
-            <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
+      <div className="admin-card" style={{ marginBottom: '60px' }}>
+        <h2 style={{ marginBottom: '24px', fontSize: '1.25rem' }}>
+          {editingId ? '📝 Cập nhật thông tin cây' : '✨ Thêm cây cảnh mới'}
+        </h2>
+        <form onSubmit={handleSubmit}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px' }}>
+            <div className="form-group">
+              <label>Tên cây cảnh</label>
+              <input type="text" name="name" className="form-control" placeholder="Ví dụ: Sen đá móng rồng" value={formData.name} onChange={handleChange} required />
+            </div>
+            <div className="form-group">
+              <label>Giá bán (VNĐ)</label>
+              <input type="number" name="price" className="form-control" placeholder="150000" value={formData.price} onChange={handleChange} required />
+            </div>
           </div>
+          
           <div className="form-group">
-            <label>Giá (VNĐ)</label>
-            <input type="number" name="price" className="form-control" value={formData.price} onChange={handleChange} required />
+            <label>Mô tả chi tiết</label>
+            <textarea name="description" className="form-control" rows="4" placeholder="Nhập đặc điểm, cách chăm sóc..." value={formData.description} onChange={handleChange}></textarea>
           </div>
+          
           <div className="form-group">
-            <label>Mô tả</label>
-            <textarea name="description" className="form-control" rows="4" value={formData.description} onChange={handleChange}></textarea>
+            <label>Hình ảnh sản phẩm</label>
+            <input type="file" name="image" className="form-control" onChange={handleChange} accept="image/*" />
+            {editingId && <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '8px' }}>* Để trống nếu không muốn đổi ảnh cũ</p>}
           </div>
-          <div className="form-group">
-            <label>Hình ảnh</label>
-            <input type="file" name="image" className="form-control" onChange={handleChange} />
+
+          <div style={{ display: 'flex', gap: '12px' }}>
+            <button type="submit" className="btn btn-primary" style={{ padding: '14px 40px' }} disabled={loading}>
+              {loading ? 'Đang lưu...' : (editingId ? 'Cập nhật ngay' : 'Thêm vào kho')}
+            </button>
+            {editingId && (
+              <button type="button" className="btn" style={{ background: '#f1f5f9', color: 'var(--text-base)' }} onClick={() => {
+                setEditingId(null);
+                setFormData({ name: '', price: '', description: '', image: null });
+              }}>Hủy bỏ</button>
+            )}
           </div>
-          <button type="submit" className="btn btn-primary">
-            {editingId ? 'Cập nhật' : 'Thêm mới'}
-          </button>
-          {editingId && (
-            <button type="button" className="btn" style={{ marginLeft: '10px', background: '#ccc' }} onClick={() => {
-              setEditingId(null);
-              setFormData({ name: '', price: '', description: '', image: null });
-            }}>Hủy</button>
-          )}
         </form>
       </div>
 
-      <h2>Danh sách cây</h2>
-      <table className="admin-table">
-        <thead>
-          <tr>
-            <th>Ảnh</th>
-            <th>Tên</th>
-            <th>Giá</th>
-            <th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {plants.map(plant => (
-            <tr key={plant.id}>
-              <td>
-                <img src={plant.image ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`) : 'https://via.placeholder.com/50'} alt={plant.name} />
-              </td>
-              <td>{plant.name}</td>
-              <td>{plant.price.toLocaleString()} VNĐ</td>
-              <td>
-                <button className="btn btn-primary" style={{ marginRight: '10px', padding: '5px 15px' }} onClick={() => handleEdit(plant)}>Sửa</button>
-                <button className="btn btn-danger" style={{ padding: '5px 15px' }} onClick={() => handleDelete(plant.id)}>Xóa</button>
-              </td>
+      <h2 style={{ marginBottom: '20px', fontSize: '1.5rem' }}>Danh sách sản phẩm ({plants.length})</h2>
+      <div style={{ overflowX: 'auto' }}>
+        <table className="admin-table">
+          <thead>
+            <tr>
+              <th>Hình ảnh</th>
+              <th>Tên sản phẩm</th>
+              <th>Giá niêm yết</th>
+              <th>Thao tác</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {plants.map(plant => (
+              <tr key={plant.id}>
+                <td style={{ width: '100px' }}>
+                  <img 
+                    src={plant.image ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`) : 'https://via.placeholder.com/600x400?text=No+Image'} 
+                    alt={plant.name} 
+                    style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px' }}
+                  />
+                </td>
+                <td style={{ fontWeight: '600', color: 'var(--text-dark)' }}>{plant.name}</td>
+                <td style={{ color: 'var(--primary)', fontWeight: '700' }}>{plant.price.toLocaleString()} đ</td>
+                <td>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <button className="btn" style={{ background: '#f0fdf4', color: 'var(--primary)', padding: '8px 16px' }} onClick={() => handleEdit(plant)}>Sửa</button>
+                    <button className="btn btn-danger" style={{ padding: '8px 16px' }} onClick={() => handleDelete(plant.id)}>Xóa</button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

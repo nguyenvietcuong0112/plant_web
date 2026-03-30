@@ -1,23 +1,16 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { supabase } from '../api';
 import { useNavigate } from 'react-router-dom';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = 'https://zqiipqdvagiihvbyshrc.supabase.co';
-const supabaseKey = 'sb_publishable_CPsWTZQUkOC-7cToD2Hq3w_mgf8U9AM';
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -25,50 +18,48 @@ const Login = () => {
       });
 
       if (error) throw error;
-
-      // Save session info
+      
       localStorage.setItem('supabase.auth.token', data.session.access_token);
       navigate('/admin');
-    } catch (err) {
-      setError(err.message);
+    } catch (error) {
+      alert('Lỗi đăng nhập: ' + (error.message || 'Sai email hoặc mật khẩu'));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="container" style={{ maxWidth: '400px', padding: '100px 20px' }}>
-      <div className="card" style={{ padding: '30px' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Admin Login</h2>
-        {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
-        <form onSubmit={handleLogin}>
+    <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: 'calc(100vh - 80px)' }}>
+      <div className="admin-card" style={{ width: '100%', maxWidth: '450px', textAlign: 'center' }}>
+        <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🔐</div>
+        <h1 style={{ marginBottom: '10px' }}>Đăng nhập Quản trị</h1>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>Vui lòng đăng nhập để quản lý kho hàng của bạn.</p>
+        
+        <form onSubmit={handleLogin} style={{ textAlign: 'left' }}>
           <div className="form-group">
-            <label>Email</label>
+            <label>Email đại diện</label>
             <input 
               type="email" 
               className="form-control" 
+              placeholder="admin@example.com"
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
               required 
             />
           </div>
-          <div className="form-group" style={{ marginTop: '15px' }}>
+          <div className="form-group">
             <label>Mật khẩu</label>
             <input 
               type="password" 
               className="form-control" 
+              placeholder="••••••••"
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               required 
             />
           </div>
-          <button 
-            type="submit" 
-            className="btn btn-primary" 
-            style={{ width: '100%', marginTop: '20px' }}
-            disabled={loading}
-          >
-            {loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+          <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '10px', padding: '14px' }} disabled={loading}>
+            {loading ? 'Đang xác thực...' : 'Đăng nhập ngay'}
           </button>
         </form>
       </div>
