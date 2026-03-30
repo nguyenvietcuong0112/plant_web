@@ -58,7 +58,9 @@ app.get('/api/debug-env', (req, res) => {
         has_url: !!process.env.SUPABASE_URL,
         has_key: !!process.env.SUPABASE_KEY,
         vercel: !!process.env.VERCEL,
-        url_start: process.env.SUPABASE_URL ? process.env.SUPABASE_URL.substring(0, 10) : 'none'
+        url_start: process.env.SUPABASE_URL ? process.env.SUPABASE_URL.substring(0, 15) : 'none',
+        key_start: process.env.SUPABASE_KEY ? process.env.SUPABASE_KEY.substring(0, 10) : 'none',
+        key_length: process.env.SUPABASE_KEY ? process.env.SUPABASE_KEY.length : 0
     });
 });
 
