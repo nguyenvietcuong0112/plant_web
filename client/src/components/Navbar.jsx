@@ -11,7 +11,6 @@ const Navbar = () => {
         </Link>
         <div className="nav-links">
           <Link to="/" className="nav-link">Trang chủ</Link>
-          <Link to="/login" className="nav-link">Quản trị</Link>
         </div>
       </div>
     </nav>

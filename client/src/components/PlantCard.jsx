@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const PlantCard = ({ plant }) => {
   const imageUrl = plant.image 
-    ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`)
-    : 'https://via.placeholder.com/300x250?text=No+Image';
+    ? (plant.image.startsWith('http') ? plant.image : `${window.location.origin}${plant.image}`)
+    : 'https://via.placeholder.com/200x200?text=No+Image';
 
   return (
     <Link to={`/plant/${plant.id}`} className="plant-card">

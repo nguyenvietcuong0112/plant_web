@@ -26,7 +26,7 @@ const Detail = () => {
   if (!plant) return <div className="container" style={{ padding: '100px', textAlign: 'center' }}>Không tìm thấy sản phẩm.</div>;
 
   const imageUrl = plant.image 
-    ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`)
+    ? (plant.image.startsWith('http') ? plant.image : `${window.location.origin}${plant.image}`)
     : 'https://via.placeholder.com/600x400?text=No+Image';
 
   return (
@@ -52,8 +52,8 @@ const Detail = () => {
             <h3 style={{ marginBottom: '10px', fontSize: '1.1rem' }}>Mô tả sản phẩm</h3>
             <p style={{ color: 'var(--text-base)', whiteSpace: 'pre-wrap', fontSize: '1.05rem' }}>{plant.description}</p>
           </div>
-          <button className="btn btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem' }}>
-            Add to Library
+          <button className="btn btn-primary" style={{ padding: '16px 40px', fontSize: '1.1rem' }}>
+            Liên hệ đặt mua
           </button>
         </div>
       </div>

@@ -162,7 +162,7 @@ const Admin = () => {
               <tr key={plant.id}>
                 <td style={{ width: '100px' }}>
                   <img 
-                    src={plant.image ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`) : 'https://via.placeholder.com/600x400?text=No+Image'} 
+                    src={plant.image ? (plant.image.startsWith('http') ? plant.image : `${window.location.origin}${plant.image}`) : 'https://via.placeholder.com/600x400?text=No+Image'} 
                     alt={plant.name} 
                     style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '8px' }}
                   />
