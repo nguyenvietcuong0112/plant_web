@@ -14,7 +14,7 @@ const Home = () => {
   const fetchPlants = async () => {
     try {
       const { data } = await getPlants();
-      setPlants(data);
+      setPlants(data || []);
     } catch (error) {
       console.error('Error fetching plants:', error);
     } finally {
@@ -23,24 +23,24 @@ const Home = () => {
   };
 
   const filteredPlants = plants.filter(plant => 
-    plant.name.toLowerCase().includes(searchTerm.toLowerCase())
+    (plant?.name || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="container" style={{ paddingTop: '40px', paddingBottom: '60px' }}>
       <header style={{ marginBottom: '40px', textAlign: 'center' }}>
         <h1 style={{ fontSize: '2.5rem', color: 'var(--primary-dark)', marginBottom: '10px' }}>
-          Discover the Perfect Greenery
+          Khám phá Không gian Xanh
         </h1>
         <p style={{ color: 'var(--text-light)', maxWidth: '600px', margin: '0 auto' }}>
-          Transform your space with our curated collection of indoor and outdoor plants.
+          Mang thiên nhiên vào không gian sống của bạn với bộ sưu tập cây cảnh độc đáo của chúng tôi.
         </p>
       </header>
 
       <div style={{ marginBottom: '30px', maxWidth: '500px', margin: '0 auto 40px' }}>
         <input 
           type="text" 
-          placeholder="Search for plants..." 
+          placeholder="Tìm kiếm cây cảnh..." 
           className="form-control"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -48,7 +48,7 @@ const Home = () => {
       </div>
 
       {loading ? (
-        <p style={{ textAlign: 'center' }}>Loading plants...</p>
+        <p style={{ textAlign: 'center' }}>Đang tải dữ liệu...</p>
       ) : (
         <div className="plant-grid">
           {filteredPlants.map(plant => (
@@ -58,7 +58,7 @@ const Home = () => {
       )}
 
       {!loading && filteredPlants.length === 0 && (
-        <p style={{ textAlign: 'center', marginTop: '40px' }}>No plants found matching your search.</p>
+        <p style={{ textAlign: 'center', marginTop: '40px' }}>Không tìm thấy cây cảnh nào phù hợp.</p>
       )}
     </div>
   );

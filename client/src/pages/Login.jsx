@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 
+// Khởi tạo Supabase client trực tiếp tại đây để tránh lỗi import
 const supabaseUrl = 'https://zqiipqdvagiihvbyshrc.supabase.co';
-const supabaseKey = 'sb_publishable_CPsWTZQUkOC-7cToD2Hq3w_mgf8U9AM';
+const supabaseKey = 'sb_publishable_CPsWTZQUkOC-7cToD2Hq3w_mgf8U9AM'; // Lưu ý: Key này cần kiểm tra lại nếu không chạy được
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const Login = () => {
@@ -19,18 +20,18 @@ const Login = () => {
     setError('');
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (authError) throw authError;
 
-      // Save session info
+      // Lưu token vào localStorage
       localStorage.setItem('supabase.auth.token', data.session.access_token);
       navigate('/admin');
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Lỗi đăng nhập: Sai email hoặc mật khẩu');
     } finally {
       setLoading(false);
     }
@@ -38,9 +39,9 @@ const Login = () => {
 
   return (
     <div className="container" style={{ maxWidth: '400px', padding: '100px 20px' }}>
-      <div className="card" style={{ padding: '30px' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Admin Login</h2>
-        {error && <div style={{ color: 'red', marginBottom: '15px' }}>{error}</div>}
+      <div style={{ background: 'white', padding: '30px', borderRadius: '12px', boxShadow: 'var(--shadow)' }}>
+        <h2 style={{ textAlign: 'center', marginBottom: '30px' }}>Đăng nhập Quản trị</h2>
+        {error && <div style={{ color: 'red', marginBottom: '15px', textAlign: 'center', fontSize: '0.9rem' }}>{error}</div>}
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <label>Email</label>

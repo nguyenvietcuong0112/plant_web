@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Detail from './pages/Detail';
 import Admin from './pages/Admin';
 import Login from './pages/Login';
+import Contact from './pages/Contact';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/plant/:id" element={<Detail />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/admin" element={
               <ProtectedRoute>
                 <Admin />

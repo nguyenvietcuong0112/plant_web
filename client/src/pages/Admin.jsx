@@ -150,7 +150,7 @@ const Admin = () => {
                 <img src={plant.image ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`) : 'https://via.placeholder.com/50'} alt={plant.name} />
               </td>
               <td>{plant.name}</td>
-              <td>{plant.price.toLocaleString()} VNĐ</td>
+              <td>{(plant.price || 0).toLocaleString()} VNĐ</td>
               <td>
                 <button className="btn btn-primary" style={{ marginRight: '10px', padding: '5px 15px' }} onClick={() => handleEdit(plant)}>Sửa</button>
                 <button className="btn btn-danger" style={{ padding: '5px 15px' }} onClick={() => handleDelete(plant.id)}>Xóa</button>

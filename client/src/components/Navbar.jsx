@@ -9,8 +9,9 @@ const Navbar = () => {
           🌿 Plant Shop
         </Link>
         <div className="nav-links">
-          <Link to="/">Home</Link>
-          {/* Admin link hidden from users */}
+          <Link to="/" className="nav-link">Trang chủ</Link>
+          <Link to="/contact" className="nav-link">Liên hệ</Link>
+          {/* Link quản trị được ẩn đi */}
         </div>
       </div>
     </nav>

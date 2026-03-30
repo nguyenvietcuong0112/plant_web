@@ -11,7 +11,7 @@ const PlantCard = ({ plant }) => {
       <img src={imageUrl} alt={plant.name} className="plant-image" />
       <div className="plant-info">
         <h3 className="plant-name">{plant.name}</h3>
-        <p className="plant-price">{plant.price.toLocaleString()} VNĐ</p>
+        <p className="plant-price">{(plant.price || 0).toLocaleString()} VNĐ</p>
       </div>
     </Link>
   );
