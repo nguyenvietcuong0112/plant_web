@@ -82,9 +82,17 @@ const Admin = () => {
       if (!error.response) {
         alert('Lỗi kết nối: Không thể kết nối tới Server (cổng 5000). Hãy chắc chắn bạn đã chạy "npm start"!');
       } else {
+        const status = error.response?.status;
         const errBody = error.response?.data?.error;
         const errorMsg = typeof errBody === 'object' ? JSON.stringify(errBody) : (errBody || 'Có lỗi xảy ra tại Server!');
-        alert('Lỗi Server: ' + errorMsg);
+        
+        if (status === 401) {
+          alert('Phiên làm việc đã hết hạn. Vui lòng đăng nhập lại!');
+          localStorage.removeItem('supabase.auth.token');
+          navigate('/login');
+        } else {
+          alert('Lỗi Server: ' + errorMsg);
+        }
       }
     }
   };
