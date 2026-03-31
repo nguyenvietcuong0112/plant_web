@@ -43,10 +43,25 @@ const Admin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.name || !formData.price) {
+      alert('Vui lòng nhập đầy đủ Tên và Giá tiền!');
+      return;
+    }
+
+    if (!editingId && !formData.image) {
+      alert('Vui lòng chọn Hình ảnh cho sản phẩm mới!');
+      return;
+    }
+
+    if (isNaN(formData.price) || Number(formData.price) <= 0) {
+      alert('Giá tiền phải là một số dương!');
+      return;
+    }
+
     const data = new FormData();
     data.append('name', formData.name);
     data.append('price', formData.price);
-    data.append('description', formData.description);
+    data.append('description', formData.description || '');
     if (formData.image) {
       data.append('image', formData.image);
     }
