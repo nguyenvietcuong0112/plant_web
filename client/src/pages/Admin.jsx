@@ -97,70 +97,97 @@ const Admin = () => {
   };
 
   return (
-    <div className="container admin-page" style={{ padding: '40px 20px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <h1>Quản lý sản phẩm</h1>
-        <button onClick={handleLogout} className="btn" style={{ backgroundColor: '#ff4d4d', color: 'white' }}>Đăng xuất</button>
-      </div>
+  return (
+    <div className="admin-page">
+      <div className="container">
+        <div className="admin-header">
+          <div>
+            <h1 className="admin-title">Quản lý sản phẩm</h1>
+            <p className="admin-subtitle">Hệ thống quản trị Tiệm Cây Bình An</p>
+          </div>
+          <button onClick={handleLogout} className="btn-logout">Đăng xuất</button>
+        </div>
 
-      <div style={{ background: 'white', padding: '30px', borderRadius: '12px', boxShadow: 'var(--shadow)', marginBottom: '50px', marginTop: '30px' }}>
-        <h2>{editingId ? 'Sửa thông tin cây' : 'Thêm cây mới'}</h2>
-        <form onSubmit={handleSubmit} style={{ marginTop: '20px' }}>
-          <div className="form-group">
-            <label>Tên cây</label>
-            <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Giá (VNĐ)</label>
-            <input type="number" name="price" className="form-control" value={formData.price} onChange={handleChange} required />
-          </div>
-          <div className="form-group">
-            <label>Mô tả</label>
-            <textarea name="description" className="form-control" rows="4" value={formData.description} onChange={handleChange}></textarea>
-          </div>
-          <div className="form-group">
-            <label>Hình ảnh</label>
-            <input type="file" name="image" className="form-control" onChange={handleChange} />
-          </div>
-          <button type="submit" className="btn btn-primary">
-            {editingId ? 'Cập nhật' : 'Thêm mới'}
-          </button>
-          {editingId && (
-            <button type="button" className="btn" style={{ marginLeft: '10px', background: '#ccc' }} onClick={() => {
-              setEditingId(null);
-              setFormData({ name: '', price: '', description: '', image: null });
-            }}>Hủy</button>
-          )}
-        </form>
-      </div>
+        <div className="admin-card">
+          <h2 className="card-title">{editingId ? 'Sửa thông tin cây' : 'Thêm cây mới'}</h2>
+          <form onSubmit={handleSubmit} className="admin-form">
+            <div className="form-grid">
+              <div className="form-group">
+                <label>Tên cây</label>
+                <input type="text" name="name" className="form-control" value={formData.name} onChange={handleChange} placeholder="Ví dụ: Cây Kim Tiền" required />
+              </div>
+              <div className="form-group">
+                <label>Giá (VNĐ)</label>
+                <input type="number" name="price" className="form-control" value={formData.price} onChange={handleChange} placeholder="150000" required />
+              </div>
+            </div>
+            
+            <div className="form-group">
+              <label>Mô tả sản phẩm</label>
+              <textarea name="description" className="form-control" rows="3" value={formData.description} onChange={handleChange} placeholder="Mô tả đặc điểm, ý nghĩa và cách chăm sóc..."></textarea>
+            </div>
 
-      <h2>Danh sách cây</h2>
-      <table className="admin-table">
-        <thead>
-          <tr>
-            <th>Ảnh</th>
-            <th>Tên</th>
-            <th>Giá</th>
-            <th>Thao tác</th>
-          </tr>
-        </thead>
-        <tbody>
-          {plants.map(plant => (
-            <tr key={plant.id}>
-              <td>
-                <img src={plant.image ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`) : 'https://via.placeholder.com/50'} alt={plant.name} />
-              </td>
-              <td>{plant.name}</td>
-              <td>{(plant.price || 0).toLocaleString()} VNĐ</td>
-              <td>
-                <button className="btn btn-primary" style={{ marginRight: '10px', padding: '5px 15px' }} onClick={() => handleEdit(plant)}>Sửa</button>
-                <button className="btn btn-danger" style={{ padding: '5px 15px' }} onClick={() => handleDelete(plant.id)}>Xóa</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <div className="form-group">
+              <label>Hình ảnh sản phẩm</label>
+              <input type="file" name="image" className="form-control" onChange={handleChange} />
+            </div>
+
+            <div className="form-actions">
+              <button type="submit" className="btn btn-primary">
+                {editingId ? 'Lưu thay đổi' : 'Thêm sản phẩm mới'}
+              </button>
+              {editingId && (
+                <button type="button" className="btn-cancel" onClick={() => {
+                  setEditingId(null);
+                  setFormData({ name: '', price: '', description: '', image: null });
+                }}>Hủy</button>
+              )}
+            </div>
+          </form>
+        </div>
+
+        <div className="admin-list-section">
+          <h2 className="section-title-left">Danh sách sản phẩm ({plants.length})</h2>
+          <div className="table-responsive">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Ảnh</th>
+                  <th>Thông tin sản phẩm</th>
+                  <th>Giá tiền</th>
+                  <th>Thao tác</th>
+                </tr>
+              </thead>
+              <tbody>
+                {plants.map(plant => (
+                  <tr key={plant.id}>
+                    <td>
+                      <div className="admin-thumb">
+                        <img src={plant.image ? (plant.image.startsWith('http') ? plant.image : plant.image) : 'https://via.placeholder.com/80'} alt={plant.name} />
+                      </div>
+                    </td>
+                    <td>
+                      <div className="admin-plant-info">
+                        <strong>{plant.name}</strong>
+                        <p className="admin-plant-desc">{plant.description?.substring(0, 60)}...</p>
+                      </div>
+                    </td>
+                    <td><span className="admin-price">{(plant.price || 0).toLocaleString()} VNĐ</span></td>
+                    <td>
+                      <div className="admin-actions">
+                        <button className="btn-edit" onClick={() => handleEdit(plant)}>Sửa</button>
+                        <button className="btn-delete" onClick={() => handleDelete(plant.id)}>Xóa</button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
+  );
   );
 };
 
