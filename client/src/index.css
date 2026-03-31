@@ -335,20 +335,23 @@ h1, h2, h3, h4, .nav-logo {
 
 .hero-brand {
   font-family: var(--brand-font);
-  font-size: clamp(3rem, 8vw, 6rem);
-  margin-bottom: 0.5rem;
-  letter-spacing: 4px;
+  font-size: clamp(4rem, 12vw, 10rem);
+  margin-bottom: 0px;
+  letter-spacing: -2px;
   color: var(--white);
   text-transform: uppercase;
+  line-height: 1;
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
-  max-width: 600px;
+  font-family: var(--brand-font);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  max-width: 800px;
   margin: 0 auto 2.5rem;
   font-weight: 300;
   letter-spacing: 0.5px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.95);
+  line-height: 1.2;
 }
 
 /* Home Search */
