@@ -26,37 +26,30 @@ const Detail = () => {
   if (!plant) return <div className="container" style={{ padding: '40px' }}>Không tìm thấy sản phẩm.</div>;
 
   const imageUrl = plant.image 
-    ? (plant.image.startsWith('http') ? plant.image : `http://localhost:5001${plant.image}`)
-    : 'https://via.placeholder.com/600x400?text=No+Image';
+    ? (plant.image.startsWith('http') ? plant.image : `${window.location.origin}${plant.image}`)
+    : 'https://via.placeholder.com/800x600?text=No+Image';
 
   return (
-    <div className="container" style={{ padding: '40px 20px' }}>
-      <button 
-        onClick={() => navigate(-1)} 
-        className="btn" 
-        style={{ marginBottom: '30px', background: '#eee' }}
-      >
-        ← Quay lại
-      </button>
+    <div className="detail-page container">
+      <header className="detail-header">
+        <button onClick={() => navigate(-1)} className="btn-back">
+          <span style={{ fontSize: '1.4rem' }}>◀</span> Trở về
+        </button>
+      </header>
       
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '50px', alignItems: 'start' }}>
-        <img 
-          src={imageUrl} 
-          alt={plant.name} 
-          style={{ width: '100%', borderRadius: '20px', boxShadow: 'var(--shadow)', maxHeight: '500px', objectFit: 'cover' }} 
-        />
-        <div>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '10px' }}>{plant.name}</h1>
-          <p style={{ fontSize: '1.5rem', color: 'var(--primary-color)', fontWeight: '700', marginBottom: '20px' }}>
-            {(plant.price || 0).toLocaleString()} VNĐ
+      <div className="detail-layout">
+        <div className="detail-image-box">
+          <img src={imageUrl} alt={plant.name} />
+        </div>
+        
+        <div className="detail-card">
+          <h1 className="detail-title">{plant.name}</h1>
+          <p className="detail-price">
+            {Math.floor(plant.price).toLocaleString()} VNĐ
           </p>
-          <div style={{ padding: '20px', background: '#f5f5f5', borderRadius: '12px', marginBottom: '30px' }}>
-            <h3 style={{ marginBottom: '10px' }}>Mô tả sản phẩm</h3>
-            <p style={{ color: 'var(--text-light)', whiteSpace: 'pre-wrap' }}>{plant.description}</p>
+          <div className="detail-desc">
+            {plant.description}
           </div>
-          <button className="btn btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem' }}>
-            Liên hệ đặt mua
-          </button>
         </div>
       </div>
     </div>
