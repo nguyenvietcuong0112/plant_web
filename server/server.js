@@ -28,11 +28,12 @@ const verifyToken = async (req, res, next) => {
         const { data: { user }, error } = await supabase.auth.getUser(token);
         
         if (error || !user) {
-            console.error('Auth error:', error);
+            console.error('Auth error for token:', token ? token.substring(0, 10) + '...' : 'none', error);
             return res.status(401).json({ 
                 error: 'Unauthorized', 
-                message: error?.message || 'User not found',
-                details: error
+                message: error?.message || 'User not found in Supabase',
+                code: error?.code,
+                status: error?.status
             });
         }
 
