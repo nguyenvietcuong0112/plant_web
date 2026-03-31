@@ -112,6 +112,7 @@ h1, h2, h3, h4, .nav-logo {
   color: var(--primary);
   transition: var(--transition);
   font-size: 1rem;
+  text-decoration: none;
 }
 
 .nav-link:hover {
