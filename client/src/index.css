@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
-  --primary: #4A6721;
-  --primary-hover: #3d561a;
-  --primary-soft: #f1f5e9;
+  --primary: #4D731E;
+  --primary-hover: #3d5a17;
+  --primary-soft: #f4f7ed;
   --secondary: #64748b;
   --accent: #f59e0b;
   --bg-main: #FDFBF0;
@@ -398,20 +398,19 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: var(--text-base);
+  color: var(--primary);
   font-weight: 500;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   margin-bottom: 50px;
   transition: var(--transition);
-  padding: 8px 16px;
-  background: rgba(0,0,0,0.03);
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 4px;
+  padding: 0;
+  background: none;
+  border: none;
 }
 
 .btn-back:hover {
-  background: rgba(0,0,0,0.06);
+  opacity: 0.8;
 }
 
 .detail-layout {
