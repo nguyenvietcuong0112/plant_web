@@ -94,13 +94,19 @@ h1, h2, h3, h4, .nav-logo {
 }
 
 .nav-logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--primary);
   display: flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
+}
+
+.logo-img {
+  height: 60px;
+  width: auto;
+  transition: var(--transition);
+}
+
+.logo-img:hover {
+  transform: scale(1.05);
 }
 
 .nav-links {

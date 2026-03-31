@@ -18,10 +18,7 @@ const Navbar = () => {
     <nav className={`navbar ${isHome && !scrolled ? 'navbar-transparent' : ''}`}>
       <div className="container">
         <Link to="/" className="nav-logo">
-          <div className="logo-circle">
-            <span style={{ color: 'var(--primary)', fontSize: '0.6rem' }}>●</span>
-          </div>
-          Logo
+          <img src="/logo.png" alt="Tiệm Cây Bình An" className="logo-img" />
         </Link>
         <div className="nav-links">
           <Link to="/" className="nav-link">Trang chủ</Link>
