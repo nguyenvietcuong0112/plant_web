@@ -341,7 +341,7 @@ h1, h2, h3, h4, .nav-logo {
 
 .hero-brand {
   font-family: var(--brand-font);
-  font-size: clamp(4rem, 12vw, 10rem);
+  font-size: clamp(3rem, 10vw, 8rem);
   margin-bottom: 0px;
   letter-spacing: -2px;
   color: var(--white);

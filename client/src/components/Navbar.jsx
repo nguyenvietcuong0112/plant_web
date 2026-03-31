@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = React.useState(false);
@@ -18,7 +19,7 @@ const Navbar = () => {
     <nav className={`navbar ${isHome && !scrolled ? 'navbar-transparent' : ''}`}>
       <div className="container">
         <Link to="/" className="nav-logo">
-          <img src="/logo.png" alt="Tiệm Cây Bình An" className="logo-img" />
+          <img src={logo} alt="Tiệm Cây Bình An" className="logo-img" />
         </Link>
         <div className="nav-links">
           <Link to="/" className="nav-link">Trang chủ</Link>
