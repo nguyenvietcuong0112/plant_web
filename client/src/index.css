@@ -101,8 +101,13 @@ h1, h2, h3, h4, .nav-logo {
 
 .logo-img {
   height: 60px;
-  width: auto;
+  width: 60px;
+  object-fit: cover;
+  border-radius: 50%;
   transition: var(--transition);
+  background: #ffffff;
+  padding: 6px;
+  box-shadow: var(--shadow-sm);
 }
 
 .logo-img:hover {
