@@ -97,7 +97,6 @@ const Admin = () => {
   };
 
   return (
-  return (
     <div className="admin-page">
       <div className="container">
         <div className="admin-header">
@@ -187,7 +186,6 @@ const Admin = () => {
         </div>
       </div>
     </div>
-  );
   );
 };
 
