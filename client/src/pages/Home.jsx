@@ -23,7 +23,7 @@ const Home = () => {
     }
   };
 
-  const filteredPlants = plants.filter(plant => 
+  const filteredPlants = plants.filter(plant =>
     (plant?.name || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -33,12 +33,12 @@ const Home = () => {
         <div className="container">
           <h1 className="hero-brand">BINHAN</h1>
           <p className="hero-subtitle">
-            Bring nature into your living space with our unique collection of plants
+            Mang thiên nhiên vào không gian sống của bạn
           </p>
           <div className="hero-search">
-            <input 
-              type="text" 
-              placeholder="Searching" 
+            <input
+              type="text"
+              placeholder="Searching"
               className="form-control"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

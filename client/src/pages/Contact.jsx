@@ -2,29 +2,48 @@ import React from 'react';
 
 const Contact = () => {
   return (
-    <div className="container" style={{ padding: '80px 20px', textAlign: 'center' }}>
-      <h1 style={{ fontSize: '2.5rem', color: 'var(--primary-dark)', marginBottom: '30px' }}>
-        Liên hệ với chúng tôi
-      </h1>
+    <div className="contact-page-container">
+      <h1 className="contact-title">Liên hệ với chúng tôi</h1>
       
-      <div style={{ maxWidth: '600px', margin: '0 auto', background: 'white', padding: '40px', borderRadius: '12px', boxShadow: 'var(--shadow)', textAlign: 'left' }}>
-        <div style={{ marginBottom: '20px' }}>
-          <h3 style={{ color: 'var(--primary-color)', marginBottom: '10px' }}>📍 Địa chỉ</h3>
-          <p>123 Đường Cây Cảnh, Quận X, TP. Hồ Chí Minh</p>
+      <div className="contact-main-card">
+        <div className="contact-method-item">
+          <div className="method-icon">📞</div>
+          <div className="method-content">
+            <h3>Điện thoại</h3>
+            <p>0969 385 426</p>
+          </div>
         </div>
         
-        <div style={{ marginBottom: '20px' }}>
-          <h3 style={{ color: 'var(--primary-color)', marginBottom: '10px' }}>📞 Điện thoại</h3>
-          <p>0123 456 789</p>
+        <div className="contact-method-item">
+          <div className="method-icon">✉️</div>
+          <div className="method-content">
+            <h3>Email</h3>
+            <p>tiemcaycanhbinhan@gmail.com</p>
+          </div>
+        </div>
+
+        <div className="contact-method-item">
+          <div className="method-icon">💬</div>
+          <div className="method-content">
+            <h3>Zalo</h3>
+            <a href="https://zalo.me/0969385426" target="_blank" rel="noopener noreferrer" className="contact-button zalo">
+              Nhắn tin Zalo
+            </a>
+          </div>
+        </div>
+
+        <div className="contact-method-item">
+          <div className="method-icon">📸</div>
+          <div className="method-content">
+            <h3>Instagram</h3>
+            <a href="https://www.instagram.com/tiemcaybinhann?igsh=MTRyeGZrb3Vib2FuOQ==" target="_blank" rel="noopener noreferrer" className="contact-button insta">
+              Liên hệ ngay
+            </a>
+          </div>
         </div>
         
-        <div style={{ marginBottom: '20px' }}>
-          <h3 style={{ color: 'var(--primary-color)', marginBottom: '10px' }}>✉️ Email</h3>
-          <p>contact@plantshop.vn</p>
-        </div>
-        
-        <div style={{ marginTop: '30px', padding: '20px', background: '#f0fdf4', borderRadius: '8px', border: '1px solid #dcfce7' }}>
-          <p style={{ fontStyle: 'italic', color: '#166534' }}>
+        <div className="contact-quote-box">
+          <p>
             "Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn tìm kiếm người bạn xanh cho ngôi nhà của mình."
           </p>
         </div>

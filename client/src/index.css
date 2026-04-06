@@ -35,7 +35,11 @@ body {
   line-height: 1.5;
 }
 
-h1, h2, h3, h4, .nav-logo {
+h1,
+h2,
+h3,
+h4,
+.nav-logo {
   font-family: var(--body-font);
   color: var(--text-dark);
 }
@@ -341,7 +345,8 @@ h1, h2, h3, h4, .nav-logo {
   align-items: center;
   position: relative;
   color: var(--white);
-  padding-top: 80px; /* Offset for fixed navbar */
+  padding-top: 80px;
+  /* Offset for fixed navbar */
 }
 
 .hero::after {
@@ -450,36 +455,34 @@ section {
 }
 
 .detail-image-box {
-  width: 90%;
+  width: 75%;
   aspect-ratio: 4 / 3;
   max-height: 600px;
   border-radius: 25px;
   overflow: hidden;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
   background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem;
+  padding: 0;
 }
 
 .detail-image-box img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .detail-card {
   position: absolute;
-  right: 0;
+  right: -30px;
   bottom: -60px;
   width: 38%;
   background: var(--white);
   padding: 40px;
   border-radius: 45px;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
   z-index: 20;
 }
 
@@ -492,12 +495,55 @@ section {
   text-transform: uppercase;
 }
 
+.detail-price-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
 .detail-price {
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--primary);
-  margin-bottom: 30px;
+  margin-bottom: 0;
   opacity: 0.8;
+}
+
+.detail-contact-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-contact {
+  background: var(--primary);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+}
+
+.btn-contact.btn-insta {
+  background: #E1306C; /* Instagram Color */
+}
+
+.btn-contact.btn-insta:hover {
+  background: #C13584;
+}
+
+.btn-contact:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(77, 115, 30, 0.3);
+  color: white;
 }
 
 .detail-desc {
@@ -507,7 +553,11 @@ section {
 }
 
 @media (max-width: 992px) {
-  .detail-image-box { width: 100%; aspect-ratio: 4/3; }
+  .detail-image-box {
+    width: 100%;
+    aspect-ratio: 4/3;
+  }
+
   .detail-card {
     position: static;
     width: 100%;
@@ -560,7 +610,7 @@ section {
   background: white;
   padding: 30px;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   margin-bottom: 50px;
 }
 
@@ -596,7 +646,7 @@ section {
   background: white;
   padding: 30px;
   border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 .section-title-left {
@@ -624,8 +674,13 @@ section {
   background: #fcfcfc;
 }
 
-.admin-table tr td:first-child { border-radius: 10px 0 0 10px; }
-.admin-table tr td:last-child { border-radius: 0 10px 10px 0; }
+.admin-table tr td:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.admin-table tr td:last-child {
+  border-radius: 0 10px 10px 0;
+}
 
 .admin-thumb {
   width: 70px;
@@ -663,7 +718,8 @@ section {
   gap: 8px;
 }
 
-.btn-edit, .btn-delete {
+.btn-edit,
+.btn-delete {
   padding: 6px 14px;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -678,15 +734,149 @@ section {
   color: var(--primary);
 }
 
-.btn-edit:hover { background: var(--primary); color: white; }
+.btn-edit:hover {
+  background: var(--primary);
+  color: white;
+}
 
 .btn-delete {
   background: #fff5f5;
   color: #ff4d4d;
 }
 
-.btn-delete:hover { background: #ff4d4d; color: white; }
+.btn-delete:hover {
+  background: #ff4d4d;
+  color: white;
+}
 
 .table-responsive {
   overflow-x: auto;
+}
+/* Contact Page Styles */
+.contact-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 20px 80px;
+  text-align: center;
+}
+
+.contact-title {
+  font-size: 3rem;
+  color: var(--primary-dark);
+  margin-bottom: 40px;
+  font-family: 'Libre Caslon Display', serif;
+}
+
+.contact-main-card {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  padding: 50px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  text-align: left;
+}
+
+.contact-method-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.contact-method-item:last-of-type {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.method-icon {
+  font-size: 1.5rem;
+  background: #f8fafc;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.method-content {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.method-content h3 {
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 0;
+  font-weight: 600;
+}
+
+.method-content p {
+  font-size: 1.05rem;
+  color: var(--text-base);
+  opacity: 0.8;
+  margin-bottom: 0;
+}
+
+.contact-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 24px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.contact-button.zalo {
+  background: var(--primary);
+  color: white;
+}
+
+.contact-button.zalo:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(77, 115, 30, 0.2);
+}
+
+.contact-button.insta {
+  background: var(--primary);
+  color: white;
+}
+
+.contact-button.insta:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(77, 115, 30, 0.2);
+}
+
+.contact-quote-box {
+  margin-top: 40px;
+  padding: 25px;
+  background: #f0fdf4;
+  border-radius: 16px;
+  border-left: 4px solid var(--primary);
+}
+
+.contact-quote-box p {
+  font-style: italic;
+  color: #166534;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 768px) {
+  .contact-title {
+    font-size: 2.2rem;
+  }
+  .contact-main-card {
+    padding: 30px 20px;
+  }
 }

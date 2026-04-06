@@ -25,7 +25,7 @@ const Detail = () => {
   if (loading) return <div className="container" style={{ padding: '40px' }}>Đang tải...</div>;
   if (!plant) return <div className="container" style={{ padding: '40px' }}>Không tìm thấy sản phẩm.</div>;
 
-  const imageUrl = plant.image 
+  const imageUrl = plant.image
     ? (plant.image.startsWith('http') ? plant.image : `${window.location.origin}${plant.image}`)
     : 'https://via.placeholder.com/800x600?text=No+Image';
 
@@ -36,17 +36,22 @@ const Detail = () => {
           <span style={{ fontSize: '1.4rem' }}>◀</span> Trở về
         </button>
       </header>
-      
+
       <div className="detail-layout">
         <div className="detail-image-box">
           <img src={imageUrl} alt={plant.name} />
         </div>
-        
+
         <div className="detail-card">
           <h1 className="detail-title">{plant.name}</h1>
-          <p className="detail-price">
-            {Math.floor(plant.price).toLocaleString()} VNĐ
-          </p>
+          <div className="detail-price-row">
+            <p className="detail-price">
+              {Math.floor(plant.price).toLocaleString()} VNĐ
+            </p>
+            <a href="https://zalo.me/0969385426" target="_blank" rel="noopener noreferrer" className="btn-contact">
+              Liên hệ ngay
+            </a>
+          </div>
           <div className="detail-desc">
             {plant.description}
           </div>
