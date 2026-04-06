@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getPlants } from '../api';
 import PlantCard from '../components/PlantCard';
-import heroBg from '../assets/hero-bg.png';
+import bgHeader from '../assets/bg_header.png';
 
 const Home = () => {
   const [plants, setPlants] = useState([]);
@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <section className="hero" style={{ backgroundImage: `url(${heroBg})` }}>
+      <section className="hero" style={{ backgroundImage: `url(${bgHeader})` }}>
         <div className="container">
           <h1 className="hero-brand">BINHAN</h1>
           <p className="hero-subtitle">
