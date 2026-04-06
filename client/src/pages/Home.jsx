@@ -38,7 +38,7 @@ const Home = () => {
           <div className="hero-search">
             <input
               type="text"
-              placeholder="Searching"
+              placeholder="Tìm kiếm"
               className="form-control"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

@@ -64,6 +64,7 @@ h4,
   z-index: 1000;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   transition: var(--transition);
+  padding: 0 20px; /* Added padding to prevent edge touching */
 }
 
 .navbar-transparent {
@@ -345,8 +346,13 @@ h4,
   align-items: center;
   position: relative;
   color: var(--white);
-  padding-top: 80px;
-  /* Offset for fixed navbar */
+  padding: 80px 20px 0; /* Added horizontal padding for mobile */
+}
+
+@media (max-width: 768px) {
+  .hero {
+    background-attachment: scroll; /* Fix for mobile browser background bugs */
+  }
 }
 
 .hero::after {
@@ -518,7 +524,7 @@ section {
 
 .btn-contact {
   background: var(--primary);
-  color: white;
+  color: white !important;
   padding: 10px 24px;
   border-radius: 50px;
   text-decoration: none;
@@ -531,19 +537,18 @@ section {
   min-width: 100px;
 }
 
-.btn-contact.btn-insta {
-  background: #E1306C; /* Instagram Color */
-}
-
-.btn-contact.btn-insta:hover {
-  background: #C13584;
+.btn-contact:visited,
+.btn-contact:active,
+.btn-contact:focus {
+  background: var(--primary);
+  color: white !important;
 }
 
 .btn-contact:hover {
-  background: var(--primary-dark);
+  background: var(--primary-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(77, 115, 30, 0.3);
-  color: white;
+  color: white !important;
 }
 
 .detail-desc {
@@ -561,7 +566,7 @@ section {
   .detail-card {
     position: static;
     width: 100%;
-    margin-top: -30px;
+    margin-top: 15px; /* Removed negative margin to separate containers */
     padding: 30px;
   }
 }
@@ -764,7 +769,8 @@ section {
   font-size: 3rem;
   color: var(--primary-dark);
   margin-bottom: 40px;
-  font-family: 'Libre Caslon Display', serif;
+  font-family: var(--body-font); /* Synchronized with other pages */
+  font-weight: 700;
 }
 
 .contact-main-card {
@@ -837,7 +843,14 @@ section {
 
 .contact-button.zalo {
   background: var(--primary);
-  color: white;
+  color: white !important;
+}
+
+.contact-button.zalo:visited,
+.contact-button.zalo:active,
+.contact-button.zalo:focus {
+  background: var(--primary);
+  color: white !important;
 }
 
 .contact-button.zalo:hover {
@@ -848,7 +861,14 @@ section {
 
 .contact-button.insta {
   background: var(--primary);
-  color: white;
+  color: white !important;
+}
+
+.contact-button.insta:visited,
+.contact-button.insta:active,
+.contact-button.insta:focus {
+  background: var(--primary);
+  color: white !important;
 }
 
 .contact-button.insta:hover {
@@ -873,10 +893,33 @@ section {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 20px;
+  }
+  .navbar {
+    padding: 0 15px;
+  }
+  .detail-page {
+    padding: 100px 20px 40px;
+  }
   .contact-title {
     font-size: 2.2rem;
+    margin-bottom: 30px;
   }
   .contact-main-card {
-    padding: 30px 20px;
+    padding: 30px 15px;
+    width: 100%;
+  }
+  .method-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .contact-button {
+    width: 100%;
+    justify-content: center;
+  }
+  .method-content p {
+    font-size: 0.95rem;
   }
 }
