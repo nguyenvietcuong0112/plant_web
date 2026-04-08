@@ -64,7 +64,8 @@ h4,
   z-index: 1000;
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   transition: var(--transition);
-  padding: 0 20px; /* Added padding to prevent edge touching */
+  padding: 0 20px;
+  /* Added padding to prevent edge touching */
 }
 
 .navbar-transparent {
@@ -346,12 +347,14 @@ h4,
   align-items: center;
   position: relative;
   color: var(--white);
-  padding: 80px 20px 0; /* Added horizontal padding for mobile */
+  padding: 80px 20px 0;
+  /* Added horizontal padding for mobile */
 }
 
 @media (max-width: 768px) {
   .hero {
-    background-attachment: scroll; /* Fix for mobile browser background bugs */
+    background-attachment: scroll;
+    /* Fix for mobile browser background bugs */
   }
 }
 
@@ -566,7 +569,8 @@ section {
   .detail-card {
     position: static;
     width: 100%;
-    margin-top: 15px; /* Removed negative margin to separate containers */
+    margin-top: 15px;
+    /* Removed negative margin to separate containers */
     padding: 30px;
   }
 }
@@ -757,6 +761,7 @@ section {
 .table-responsive {
   overflow-x: auto;
 }
+
 /* Contact Page Styles */
 .contact-page-container {
   max-width: 1200px;
@@ -769,7 +774,8 @@ section {
   font-size: 3rem;
   color: var(--primary-dark);
   margin-bottom: 40px;
-  font-family: var(--body-font); /* Synchronized with other pages */
+  font-family: var(--body-font);
+  /* Synchronized with other pages */
   font-weight: 700;
 }
 
@@ -798,15 +804,41 @@ section {
 }
 
 .method-icon {
-  font-size: 1.5rem;
-  background: #f8fafc;
-  width: 50px;
-  height: 50px;
+  width: 65px;
+  height: 65px;
+  border-radius: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
   flex-shrink: 0;
+  transition: var(--transition);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+  background: #f8fafc;
+}
+
+.method-icon.phone {
+  background: linear-gradient(135deg, #4D731E, #3D5A17);
+  color: white;
+}
+
+.method-icon.email {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+}
+
+.method-icon.zalo {
+  background: linear-gradient(135deg, #0068ff, #004ecc);
+  color: white;
+}
+
+.method-icon.instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: white;
+}
+
+.contact-method-item:hover .method-icon {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
 }
 
 .method-content {
@@ -896,29 +928,36 @@ section {
   .container {
     padding: 0 20px;
   }
+
   .navbar {
     padding: 0 15px;
   }
+
   .detail-page {
     padding: 100px 20px 40px;
   }
+
   .contact-title {
     font-size: 2.2rem;
     margin-bottom: 30px;
   }
+
   .contact-main-card {
     padding: 30px 15px;
     width: 100%;
   }
+
   .method-content {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
   }
+
   .contact-button {
     width: 100%;
     justify-content: center;
   }
+
   .method-content p {
     font-size: 0.95rem;
   }
